@@ -1,0 +1,7 @@
+[submodule "backend"]
+	path = backend
+	url  = git@github.com:tritonjs/backend
+
+[submodule "ui"]
+	path = ui
+	url  = git@github.com:tritonjs/ui

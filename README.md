@@ -12,7 +12,7 @@ git clone --recursive git@github.com:tritonjs/dev # You're going to need SSH set
 git clone https://github.com/tritonjs/dev
 cd dev
 git submodule init
-git submodule pull
+git submodule update
 
 # THEN!
 # Make sure to setup the configs!
