@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  backend:
+    build: './backend'
+    command: sh -c 'nodemon index.js -i cache'
+    volumes:
+      - ./backend:/backend
+      - /backend/node_modules
+    ports:
+      - "8000:80"
+
+  ui:
+    build: './ui'
+    command: npm start
+    volumes:
+      - ./ui:/ui
+      - /ui/node_modules
+      - /ui/bower_components
+    ports:
+      - '80:4200'
