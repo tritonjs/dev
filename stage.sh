@@ -94,5 +94,9 @@ examine_repo() {
   popd >/dev/null
 }
 
+if [[ $1 == '--self' ]]; then
+ examine_repo '.'
+ exit
+fi
 examine_repo 'backend'
 examine_repo 'ui'
