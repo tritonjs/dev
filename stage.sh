@@ -8,6 +8,10 @@ error() {
 }
 
 log() {
+  if [[ ${STAGE_DEBUG} == "false" ]]; then
+    return
+  fi
+
   echo -e " + \e[35m$@\e[0m"
 }
 
@@ -23,7 +27,7 @@ examine_repo() {
 
   pushd $1 >/dev/null || error "Failed to pushd into module directory...?"
 
-  echo -e "\e[34mWorking in module '\e[31m$1'\e[0m"
+  echo -e "\e[34mWorking in module '\e[31m$1\e[34m'\e[0m"
 
   log "git status"
   git status
@@ -52,11 +56,14 @@ examine_repo() {
   read -r YN
 
   if [[ $YN == 'y' ]]; then
+    log "git --no-pager diff HEAD"
+    git --no-pager diff HEAD
+
     echo ""
     question "Enter commit message: "
     read -r opt
 
-    log "git commit -am ${opt}"
+    log "git commit -am '${opt}'"
     git commit -am "${opt}"
   fi
 
