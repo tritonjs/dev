@@ -7,8 +7,21 @@ services:
     volumes:
       - ./backend:/backend
       - /backend/node_modules
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8000:80"
+    network_mode: 'bridge'
+
+  ide:
+    build: './ide'
+    command: sh -c 'nodemon index.js'
+    volumes:
+      - ./ide:/ide
+      - /idenode_modules
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8001:80"
+    network_mode: 'bridge'
 
   ui:
     build: './ui'

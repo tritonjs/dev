@@ -100,3 +100,4 @@ if [[ $1 == '--self' ]]; then
 fi
 examine_repo 'backend'
 examine_repo 'ui'
+examine_repo 'ide'

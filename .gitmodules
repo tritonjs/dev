@@ -5,3 +5,7 @@
 [submodule "ui"]
 	path = ui
 	url  = git@github.com:tritonjs/ui
+
+[submodule "ide"]
+	path = ide
+	url  = git@github.com:tritonjs/ide
