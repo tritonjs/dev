@@ -12,6 +12,11 @@ services:
       - "8000:80"
     network_mode: 'bridge'
 
+  redis:
+    image: smebberson/alpine-redis
+    ports:
+      - "6379:6379"
+
   ide:
     build: './ide'
     command: sh -c 'nodemon index.js'
