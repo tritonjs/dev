@@ -11,9 +11,12 @@ services:
     ports:
       - "8000:80"
     network_mode: 'bridge'
+    links:
+      - redis:redis
 
   redis:
     image: smebberson/alpine-redis
+    network_mode: 'bridge'
     ports:
       - "6379:6379"
 
@@ -27,6 +30,8 @@ services:
     ports:
       - "8001:80"
     network_mode: 'bridge'
+    links:
+      - redis:redis
 
   ui:
     build: './ui'
