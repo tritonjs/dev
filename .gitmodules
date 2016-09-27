@@ -9,3 +9,7 @@
 [submodule "ide"]
 	path = ide
 	url  = git@github.com:tritonjs/ide
+
+[submodule "workspace"]
+	path = workspace
+	url  = git@github.com:tritonjs/workspace
