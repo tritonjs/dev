@@ -3,42 +3,59 @@ version: '2'
 services:
   backend:
     build: './backend'
-    command: sh -c 'nodemon index.js -i cache'
+    command: 'sh -c "npm install -g nodemon; nodemon index.js"'
     volumes:
       - ./backend:/backend
-      - /backend/node_modules
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "8000:80"
+      - "8080:80"
     network_mode: 'bridge'
     links:
+      - workspace:workspace
       - redis:redis
+      - db:db
 
   redis:
-    image: smebberson/alpine-redis
-    network_mode: 'bridge'
+    image: redis:alpine
     ports:
       - "6379:6379"
+    network_mode: 'bridge'
+
+  db:
+    image: arangodb
+    ports:
+      - "8529:8529"
+    network_mode: 'bridge'
+    environment:
+      ARANGO_ROOT_PASSWORD: Q2w3YEpr84U955sd
 
   ide:
     build: './ide'
-    command: sh -c 'nodemon index.js'
+    command: 'sh -c "npm install -g nodemon; nodemon index.js"'
     volumes:
       - ./ide:/ide
-      - /idenode_modules
-      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8001:80"
     network_mode: 'bridge'
     links:
       - redis:redis
+      - db:db
+
+  workspace:
+    build: './workspace'
+    command: 'sh -c "npm install -g nodemon; nodemon index.js"'
+    volumes:
+      - ./workspace:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: 'bridge'
+    links:
+      - redis:redis
+      - db:db
 
   ui:
     build: './ui'
-    command: npm start
+    network_mode: 'bridge'
     volumes:
-      - ./ui:/ui
-      - /ui/node_modules
-      - /ui/bower_components
+      - ./ui:/usr/share/nginx
     ports:
-      - '80:4200'
+      - '80:80'
