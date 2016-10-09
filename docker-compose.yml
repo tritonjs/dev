@@ -3,10 +3,10 @@ version: '2'
 services:
   backend:
     build: './backend'
-    command: 'sh -c "npm install -g nodemon; nodemon index.js"'
+    command: 'sh -c "npm install -g nodemon; npm install; nodemon index.js"'
     volumes:
       - ./backend:/backend
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/userfiles
     ports:
       - "8080:80"
     network_mode: 'bridge'
@@ -14,6 +14,8 @@ services:
       - workspace:workspace
       - redis:redis
       - db:db
+    environment:
+       CONFIG_PATH: "/userfiles/config.json"
 
   redis:
     image: redis:alpine
@@ -31,23 +33,29 @@ services:
 
   ide:
     build: './ide'
-    command: 'sh -c "npm install -g nodemon; nodemon index.js"'
+    command: 'sh -c "npm install -g nodemon; npm install; nodemon index.js"'
     volumes:
       - ./ide:/ide
+      - ./config:/userfiles
     ports:
       - "8001:80"
     network_mode: 'bridge'
+    environment:
+       CONFIG_PATH: "/userfiles/config.json"
     links:
       - redis:redis
       - db:db
 
   workspace:
     build: './workspace'
-    command: 'sh -c "npm install -g nodemon; nodemon index.js"'
+    command: 'sh -c "npm install -g nodemon; npm install; nodemon index.js"'
     volumes:
       - ./workspace:/workspace
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/userfiles
     network_mode: 'bridge'
+    environment:
+       CONFIG_PATH: "/userfiles/config.json"
     links:
       - redis:redis
       - db:db

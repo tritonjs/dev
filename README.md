@@ -1,6 +1,11 @@
 # dev
 
-Development Environment!
+Welcome! This is the base of TRITON. It's what's used to develop it locally, and
+serves as the base point for all coding.
+
+## Version
+
+**0.5.1** - *Initial Development Release*.
 
 ## Quick start
 
@@ -10,12 +15,17 @@ git clone --recursive git@github.com:tritonjs/dev # You're going to need SSH set
 # OR
 
 git clone https://github.com/tritonjs/dev
-cd dev
+
+# Setup the submodules.
 git submodule init
 git submodule update
 
-# THEN!
-# Make sure to setup the configs!
+# FOR BOTH
+
+# If you want to use the latest code, instead of the "snapshot"
+git pull --recurse-submodules
+
+# Start coding! Check the docker-compose file for the ports.
 docker-compose up
 ```
 
@@ -23,9 +33,9 @@ docker-compose up
 
 Here's a list of configs to be modified according to their respective repos.
 
-* `./backend/config/config.json`
-* `./ui/public/config.js`
+* `./config/config.example.json -> ./config/config.json`
+* `./ui/html/config.js`
 
-## Production
+# License
 
-Don't use this! Well, yet at least.
+MIT
