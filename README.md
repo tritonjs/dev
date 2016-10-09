@@ -5,7 +5,13 @@ serves as the base point for all coding.
 
 ## Version
 
-**0.5.1** - *Initial Development Release*.
+**0.5.2**
+
+### Changelog
+
+* Added Developer Tools
+* Fixed `cors` breaking on unknown domains accessing it
+* Fixed `auth.js` using old pre-arangodb syntax.
 
 ## Quick start
 
