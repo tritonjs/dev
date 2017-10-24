@@ -25,7 +25,7 @@ examine_repo() {
     error "Module not found."
   fi
 
-  pushd $1 >/dev/null || error "Failed to pushd into module directory...?"
+  pushd $1 >/dev/null
 
   echo -e "\e[34mWorking in module '\e[31m$1\e[34m'\e[0m"
 
